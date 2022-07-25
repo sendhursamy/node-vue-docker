@@ -1,0 +1,1 @@
+INSERT INTO `agentportal`.`profile`( `agentcode`, `name`, `password`, `role`, `email`, `mobile`, `status`) VALUES ('1001','Raja','40be4e59b9a2a2b5dffb918c0e86b3d7','admin','raja.d@thehindu.co.in','9633569361','active')
