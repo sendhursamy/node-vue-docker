@@ -1,7 +1,7 @@
 const express = require('express')
 const helmet = require("helmet");
 const app = express()
-// require('dotenv').config()
+require('dotenv').config()
 // console.log(process.env)
 const bodyParser = require('body-parser');
 
@@ -22,11 +22,15 @@ app.all('/*', setupCORS);
 // To be removed in production
 
 const port = 3001
-
-app.get('/', async (req, res) => {
-  res.send('Auto publisher Controller Up !!!')
-})
+app.use(helmet())
 
 app.listen(port, () => {
   console.log(`Agent care APP listening at http://localhost:${port}`)
 })
+app.get('/', async (req, res) => {
+  res.send('Agent Care Api Up !!!')
+})
+ 
+app.use('/auth', require('./routes/agentportal/v1/auth'))
+app.use('/createuser', require('./routes/agentportal/v1/createUser'))
+app.use('/profile', require('./routes/agentportal/v1/profile'))
