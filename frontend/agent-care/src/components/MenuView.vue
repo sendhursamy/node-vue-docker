@@ -2,7 +2,7 @@
   <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3  bg-gradient-primary shadow-primary" id="sidenav-main">
     <div class="sidenav-header">
       <i class="fas fa-times p-3 cursor-pointer text-white opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"  @click="$emit('closeEvent')"></i>
-       <img src="../img/logo.png" class="navbar-brand-img h-100" alt="main_logo">
+       <img src="../assets/logo.png" class="navbar-brand-img h-100" alt="main_logo">
     </div>
     <hr class="horizontal light mt-0 mb-2">
     <div class="collapse navbar-collapse  w-auto " id="sidenav-collapse-main">
