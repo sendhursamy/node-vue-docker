@@ -21,7 +21,7 @@ const thgAuth = async (req,res,next) => {
             if (d2 >= d1 && decoded) {
                 console.log('not expires')
                 // console.log(decoded.data.agentcode);
-                req.query.BPcode = BPcode
+                req.query.BPcode = decoded.data.BPcode
                 console.log('req.agentCode',req.query);
                 next()
             }
