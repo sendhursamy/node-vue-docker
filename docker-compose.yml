@@ -46,7 +46,7 @@ services:
       - SYS_NICE
     environment:
       MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: agentportal
+      MYSQL_DATABASE: Agent_Care
       MYSQL_USER: agentportal
       MYSQL_PASSWORD: agentportal
     ports:

@@ -2,7 +2,7 @@ const agentCareDbDetails= {
     "host":"db",
     "username":"agentportal",
     "password":"agentportal",
-    "dbname":"agentportal"
+    "dbname":"Agent_Care"
 }
 
 module.exports ={

@@ -2,9 +2,10 @@ const sql = require('../dbConnect')
 var md5 = require('md5');
 
 const insertUser = async (userDetails) => {
+    // tb_UP_UserID,tb_UP_BPcode,tb_UP_BPDesc,tb_UP_title,tb_UP_name,tb_UP_houseno,tb_UP_street1,tb_UP_street2,tb_UP_street3,tb_UP_street4,tb_UP_city,tb_UP_district,tb_UP_postalcode,tb_UP_regionname,tb_UP_mobile,tb_UP_emailid,tb_UP_usergroup,tb_UP_userstatus,tb_UP_password,tb_UP_createddate,tb_UP_updateddate
     try {
         console.log(userDetails);
-        const userCheckQuery = `SELECT * FROM profile WHERE agentcode = '${userDetails.agentcode}'`
+        const userCheckQuery = `SELECT * FROM tbl_UserProfile WHERE tb_UP_BPcode = '${userDetails.tb_UP_BPcode}'`
         console.log(userCheckQuery);
         const userCheck = await sql.query(userCheckQuery)
         console.log(userCheck[0]);
@@ -17,7 +18,29 @@ const insertUser = async (userDetails) => {
             return status
         }
         else{
-            const query = `INSERT into profile(agentcode,name,email,mobile,password,role,status) VALUES ("${userDetails.agentcode}","${userDetails.name}","${userDetails.email}","${userDetails.mobile}","${md5(userDetails.password)}","${userDetails.role}","${userDetails.status}")`;
+            // tb_UP_UserID,tb_UP_BPcode,tb_UP_BPDesc,tb_UP_title,tb_UP_name,tb_UP_houseno,tb_UP_street1,tb_UP_street2,tb_UP_street3,tb_UP_street4,tb_UP_city,tb_UP_district,tb_UP_postalcode,tb_UP_regionname,tb_UP_mobile,tb_UP_emailid,tb_UP_usergroup,tb_UP_userstatus,tb_UP_password,tb_UP_createddate,tb_UP_updateddate
+
+            const query = `INSERT into tbl_UserProfile(tb_UP_BPcode,tb_UP_BPDesc,tb_UP_title,tb_UP_name,tb_UP_houseno,tb_UP_street1,tb_UP_street2,tb_UP_street3,tb_UP_street4,tb_UP_city,tb_UP_district,tb_UP_postalcode,tb_UP_regionname,tb_UP_mobile,tb_UP_emailid,tb_UP_usergroup,tb_UP_userstatus,tb_UP_password) VALUES (
+                "${userDetails.tb_UP_BPcode}",
+                "${userDetails.tb_UP_BPDesc}",
+                "${userDetails.tb_UP_title}",
+                "${userDetails.tb_UP_name}",
+                "${userDetails.tb_UP_houseno}",
+                "${userDetails.tb_UP_street1}",
+                "${userDetails.tb_UP_street2}",
+                "${userDetails.tb_UP_street3}",
+                "${userDetails.tb_UP_street4}",
+                "${userDetails.tb_UP_city}",
+                "${userDetails.tb_UP_district}",
+                "${userDetails.tb_UP_postalcode}",
+                "${userDetails.tb_UP_regionname}",
+                "${userDetails.tb_UP_mobile}",
+                "${userDetails.tb_UP_emailid}",
+                "${userDetails.tb_UP_usergroup}",
+                "${userDetails.tb_UP_userstatus}",
+                "${md5(userDetails.tb_UP_password)}"
+
+                )`;
             const rows = await sql.query(query);
             if(rows[0].insertId){
                 // paytmEventLog('info',`Db - ${userDetails.agentcode} -user insert success`)
