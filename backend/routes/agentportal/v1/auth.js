@@ -5,6 +5,7 @@ const getToken  = require('./../../../lib/generateToken')
 
 router.post('/',async (req,res)=>{
     const body = req.body;
+    console.log(body);
     const {agentcode,password} = body;
     const userDetails = {
         agentcode,
@@ -16,7 +17,7 @@ router.post('/',async (req,res)=>{
         const token = await getToken(isUserValidated.data)
         console.log('token',token);
         res.send({
-            "code":0,
+            "code":200,
             "message":"user validated",
             "data":{
                 "token":token,
@@ -31,7 +32,7 @@ router.post('/',async (req,res)=>{
             "message":"username or password incorrect",
             "data":false
         }
-        res.status(401).send(status)
+        res.status(200).send(status)
     }
 })
 module.exports=router
