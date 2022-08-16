@@ -27,38 +27,37 @@
                   </p> -->
                 <!-- <hr class="horizontal gray-light my-4"> -->
                 <ul class="list-group">
+                    
                   <li class="list-group-item border-0 ps-0 pt-0 text-sm"><strong class="text-dark">BP Number:</strong>
-                    &nbsp; Vignesh</li>
+                    &nbsp; {{profiileDetails[0]?.UserID}} </li>
                   <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Name:</strong> &nbsp;
-                    9944587424</li>
+                    {{profiileDetails[0]?.name}}</li>
                   <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">House no:</strong> &nbsp;
-                    vignesh.raju@thehindu.co.in</li>
+                    {{profiileDetails[0]?.houseno}}</li>
                   <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Street1	:</strong> &nbsp;
-                    Chennai</li>
+                    {{profiileDetails[0]?.street1}}</li>
                   <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Street2:</strong> &nbsp;
-                    Agent</li>
+                    {{profiileDetails[0]?.street2}}</li>
                   <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Street3:</strong> &nbsp;
-                  Agent</li>
-                  <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Street4:</strong> &nbsp;
-                  Agent</li>
+                  {{profiileDetails[0]?.street3}}</li>
+                  <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">email:</strong> &nbsp;
+                  {{profiileDetails[0]?.emailid}}</li>
                   <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">City:</strong> &nbsp;
-                  Agent</li>
+                  {{profiileDetails[0]?.city}}</li>
                   <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">District:</strong> &nbsp;
-                  Agent</li>
+                  {{profiileDetails[0]?.district}}</li>
                   <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Postal code:</strong> &nbsp;
-                  Agent</li>
+                  {{profiileDetails[0]?.postalcode}}</li>
                   <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Region name:</strong> &nbsp;
-                  Agent</li>
+                  {{profiileDetails[0]?.regionname}}</li>
                   <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Mobile Phone:</strong> &nbsp;
-                  Agent</li>
+                  {{profiileDetails[0]?.mobile}}</li>
                   <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Telephone number2:</strong> &nbsp;
-                  Agent</li>
-                  <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Email_id:</strong> &nbsp;
-                  Agent</li>
+                  {{profiileDetails[0]?.mobile}}</li>
                   <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Cust group:</strong> &nbsp;
-                  Agent</li>
+                  {{profiileDetails[0]?.usergroup}}</li>
                   <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">CustomerStatus:</strong> &nbsp;
-                  Agent</li>                  										
+                  {{profiileDetails[0]?.userstatus}}</li>                  										
                   <!-- <li class="list-group-item border-0 ps-0 pb-0">
                       <strong class="text-dark text-sm">Social:</strong> &nbsp;
                       <a class="btn btn-facebook btn-simple mb-0 ps-1 pe-2 py-0" href="javascript:;">
@@ -85,8 +84,14 @@
 
 import MenuWidget from '@/components/MenuView.vue'
 import NavBarwidget from '@/components/NavBarView.vue'
-
+import axios from 'axios'
 export default {
+  data() {
+    return {
+      profiileDetails: [],
+      token : localStorage.getItem("token")
+    }
+  },
   components: {
     MenuWidget,
     NavBarwidget
@@ -124,12 +129,39 @@ export default {
         sidenav.classList.remove('bg-transparent');
 
       }
+    },
+    async getProfileDetails(token){
+     
+      const _URL = process.env.VUE_APP_END_POINT;
+      var config = {
+        method: 'get',
+        url: _URL +'profile?api_token='+token,
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      };
+      
+      const vm = this;     
+      //without this axios router not working
+      await axios(config)
+        .then(function (response) {                
+          if(response.status == 200){                
+              vm.profiileDetails.push({...response.data.data});              
+          }else{vm.showInvalidMessage = true}          
+        })
+       .catch(function (error) {
+       console.log(error);       
+       });
     }
   },
+  created(){
+    this.getProfileDetails(this.token);
+  },
   mounted() {
-    console.log("*******");
-    console.log(this.$store.state.auth.isLogedIn);
-    
+    if(!this.token){
+      this.$router.push({name:"home"})
+    }
+          
     this.removenav();
   }
 }

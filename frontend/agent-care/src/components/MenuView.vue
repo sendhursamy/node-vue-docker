@@ -24,7 +24,7 @@
           </a>
         </li>
          <li class="nav-item">
-          <a class="nav-link text-white " @click="this.$router.push('/')" >
+          <a class="nav-link text-white " @click="logOut" >
             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
               <i class="material-icons opacity-10">logout</i>
             </div>
@@ -46,4 +46,12 @@ img {
   <script scoped>
     document.querySelector("body").classList.add("g-sidenav-show");
     document.querySelector("body").classList.add("bg-gray-200");
+    export default {
+      methods: {
+        logOut(){          
+          localStorage.removeItem("token")
+          this.$router.push('/')
+        }
+      }
+    }
   </script>

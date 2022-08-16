@@ -55,6 +55,7 @@ export default {
       password: '',
       submitted: false,
       showInvalidMessage: false,
+      token : localStorage.getItem("token")
 
     }
   },
@@ -109,12 +110,11 @@ export default {
       //without this axios router not working
       await axios(config)
         .then(function (response) {         
-          if(response.data.code == 200 && response.data.data.user != 'undefined'){
-            vm.$router.push('/profile');
-            console.log('Before'+vm.$store.state.auth.isLogedIn)
+          if(response.data.code == 200 && response.data.data.user != 'undefined'){            
             vm.$store.state.auth.isLogedIn = true
-            
-            console.log('After'+vm.$store.state.auth.isLogedIn)
+            vm.$store.state.auth.token = response.data.data.token.userToken
+            localStorage.setItem("token",response.data.data.token.userToken);
+            vm.$router.push('/profile');            
           }else{vm.showInvalidMessage = true}
         })
        .catch(function (error) {
@@ -131,6 +131,9 @@ export default {
     }
   },
   mounted() {
+    if(this.token){
+      this.$router.push({name:"profile"})
+    }
     this.focusInput();
   }
 }
