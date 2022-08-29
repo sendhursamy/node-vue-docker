@@ -4,11 +4,11 @@
 
 CREATE TABLE `Agent_Care`.`tbl_UserProfile`
 ( 
-    `tb_UP_UserID`  INT(10) NOT NULL AUTO_INCREMENT ,
-`tb_UP_BPcode`  INT(10) NOT NULL,
-`tb_UP_BPDesc`  VARCHAR(50) NOT NULL,
-`tb_UP_title`  VARCHAR(10),
-`tb_UP_name`  VARCHAR(50) NOT NULL,
+`tb_UP_UserID`  INT(255) NOT NULL AUTO_INCREMENT ,
+`tb_UP_BPcode`  INT(255) NOT NULL,
+`tb_UP_BPDesc`  VARCHAR(255) NOT NULL,
+`tb_UP_title`  VARCHAR(255),
+`tb_UP_name`  VARCHAR(255) NOT NULL,
 `tb_UP_houseno`  VARCHAR(10),
 `tb_UP_street1`  VARCHAR(100),
 `tb_UP_street2`  VARCHAR(100),
