@@ -5,7 +5,7 @@
 CREATE TABLE `Agent_Care`.`tbl_UserProfile`
 ( 
 `tb_UP_UserID`  INT(255) NOT NULL AUTO_INCREMENT ,
-`tb_UP_BPcode`  INT(255) NOT NULL,
+`tb_UP_BPcode`  VARCHAR(10) NOT NULL,
 `tb_UP_BPDesc`  VARCHAR(255) NOT NULL,
 `tb_UP_title`  VARCHAR(255),
 `tb_UP_name`  VARCHAR(255) NOT NULL,
@@ -25,7 +25,7 @@ CREATE TABLE `Agent_Care`.`tbl_UserProfile`
 `tb_UP_password`  VARCHAR(100) NOT NULL,
 `tb_UP_createddate`  TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 `tb_UP_updateddate`  TIMESTAMP default now() on update now(),
-    PRIMARY KEY(`tb_UP_UserID`)
+    PRIMARY KEY(`tb_UP_UserID`,`tb_UP_BPcode`)
 ) ENGINE = InnoDB;
 ---------------------------------------------------------
 

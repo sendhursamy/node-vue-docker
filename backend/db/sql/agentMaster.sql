@@ -24,7 +24,7 @@ CREATE TABLE `Agent_Care`.`tbl_Agent_Master`
     `tb_Agent_custstatus` VARCHAR(2)NOT NULL,
     `tb_Agent_createddate` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     `tb_Agent_updateddate` TIMESTAMP default now() on update now(),
-    PRIMARY KEY(`tb_Agent_ID`)
+    PRIMARY KEY(`tb_Agent_ID`,`tb_Agent_BPCode`)
 ) ENGINE = InnoDB;
 ---------------------------------------------------------
 
