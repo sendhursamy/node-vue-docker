@@ -105,7 +105,7 @@ export default {
     
       var config = {
         method: 'post',
-        url: _URL +'getpaymentlink?api_token='+token,
+        url: _URL +'api/getpaymentlink?api_token='+token,
         headers: {
           'Content-Type': 'application/json'
         }

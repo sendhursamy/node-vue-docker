@@ -146,7 +146,7 @@ export default {
 
           var config = {
           method: 'post',
-          url: _URL +'changepassword?api_token='+this.token,
+          url: _URL +'api/changepassword?api_token='+this.token,
           headers: {
           'Content-Type': 'application/json'
           },
