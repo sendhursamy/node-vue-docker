@@ -1,5 +1,7 @@
 const express = require('express')
+const winston = require('winston');
 const helmet = require("helmet");
+
 const app = express()
 require('dotenv').config()
 // console.log(process.env)
@@ -22,6 +24,7 @@ Object.defineProperty(Date.prototype, 'YYYYMMDDHHMMSS', {
   }
 });
 
+
 // To be removed in production
 function setupCORS(req, res, next) {
   res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
@@ -41,13 +44,17 @@ app.use(helmet())
 
 app.listen(port, () => {
   console.log(`Agent care APP listening at http://localhost:${port}`)
+  
 })
+
 app.get('/', async (req, res) => {
+  
+  
   res.send('Agent Care Api Up !!!')
 })
  
-app.use('/auth', require('./routes/agentportal/v1/auth'))
-app.use('/createuser', require('./routes/agentportal/v1/createUser'))
-app.use('/profile', require('./routes/agentportal/v1/profile'))
-app.use('/getpaymentlink', require('./routes/payment/v1/getPaymentLink'))
-app.use('/changepassword', require('./routes/agentportal/v1/changePassword'))
+app.use('/api/auth', require('./routes/agentportal/v1/auth'))
+app.use('/api/createuser', require('./routes/agentportal/v1/createUser'))
+app.use('/api/profile', require('./routes/agentportal/v1/profile'))
+app.use('/api/getpaymentlink', require('./routes/payment/v1/getPaymentLink'))
+app.use('/api/changepassword', require('./routes/agentportal/v1/changePassword'))
