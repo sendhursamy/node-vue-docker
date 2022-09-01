@@ -3,7 +3,7 @@ const router = express.Router();
 const {insertUser} = require('./../../../db/agentCare/insertUser')
 const {thgAuth} = require('./../../../auth/auth')
 
-router.post('/',async (req,res)=>{
+router.post('/',thgAuth,async (req,res)=>{
     const body = req.body;
     console.log(body);
     // tb_UP_UserID
@@ -51,8 +51,6 @@ router.post('/',async (req,res)=>{
         tb_UP_usergroup,
         tb_UP_userstatus,
         tb_UP_password
-        
-
     }
     const userCheck = await insertUser(userDetails)
     res.send(userCheck)
