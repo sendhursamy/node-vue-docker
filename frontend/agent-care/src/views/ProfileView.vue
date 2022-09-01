@@ -13,7 +13,7 @@
                 <div class="row">
                   <div class="col-md-12 align-items-center">
                     <h6 class="mb-0 f-left">Profile Information</h6>
-                    <span class="mb-0 f-right" @click="this.$router.push('/changepassword')"><i class="material-icons opacity-10">vpn_key</i><span>Change Password</span></span>
+                    <span class="mb-0 f-right changepassword" @click="this.$router.push('/changepassword')"><span><button class="btn btn-primary changepasswordbtn">Change Password</button></span></span>
                   </div>
                   <!-- <div class="col-md-4 text-end">
                       <a href="javascript:;">
@@ -177,5 +177,9 @@ export default {
 }
 .f-right i{ 
 
+}
+.changepasswordbtn{
+  padding: 4px;
+  font-size: 11px;
 }
 </style>

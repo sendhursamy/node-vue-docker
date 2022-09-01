@@ -28,8 +28,8 @@
                 <!-- <hr class="horizontal gray-light my-4"> -->
                 <ul class="list-group">
                     
-                  <li class="list-group-item border-0 ps-0 pt-0 text-sm"><strong class="text-dark">Your payment:</strong>
-                    <span v-if="paymentLink.trim()!=''" @click="pay(paymentLink)"> Click me</span>
+                  <li class="list-group-item border-0 ps-0 pt-0 text-sm"><strong class="text-dark paybillLabel">Your payment:</strong>
+                    <span  v-if="paymentLink.trim()!=''" @click="pay(paymentLink)"><button  class="btn btn-primary payBill">Pay Bill</button></span>
                     <div class="no-link" v-else >No payment link is available now</div>
                     </li>
                   
@@ -149,5 +149,13 @@ export default {
   color: chocolate;
   font-size: 14px;
   font-weight: 700;
+}
+.payBill{
+  cursor: pointer;
+  margin-left: 20px;
+ 
+}
+.paybillLabel{
+
 }
     </style>
