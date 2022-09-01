@@ -1,5 +1,4 @@
 const express = require('express')
-const winston = require('winston');
 const helmet = require("helmet");
 
 const app = express()
@@ -10,17 +9,17 @@ const bodyParser = require('body-parser');
 app.use(express.json());
 
 Object.defineProperty(Date.prototype, 'YYYYMMDDHHMMSS', {
-  value: function() {
-      function pad2(n) {  // always returns a string
-          return (n < 10 ? '0' : '') + n;
-      }
+  value: function () {
+    function pad2(n) {  // always returns a string
+      return (n < 10 ? '0' : '') + n;
+    }
 
-      return this.getFullYear() +
-             pad2(this.getMonth() + 1) + 
-             pad2(this.getDate()) +
-             pad2(this.getHours()) +
-             pad2(this.getMinutes()) +
-             pad2(this.getSeconds());
+    return this.getFullYear() +
+      pad2(this.getMonth() + 1) +
+      pad2(this.getDate()) +
+      pad2(this.getHours()) +
+      pad2(this.getMinutes()) +
+      pad2(this.getSeconds());
   }
 });
 
@@ -31,9 +30,9 @@ function setupCORS(req, res, next) {
   res.header('Access-Control-Allow-Headers', 'X-Requested-With, Content-type,Accept,X-Access-Token,X-Key');
   res.header('Access-Control-Allow-Origin', '*');
   if (req.method === 'OPTIONS') {
-      res.status(200).end();
+    res.status(200).end();
   } else {
-      next();
+    next();
   }
 }
 app.all('/*', setupCORS);
@@ -44,15 +43,15 @@ app.use(helmet())
 
 app.listen(port, () => {
   console.log(`Agent care APP listening at http://localhost:${port}`)
-  
+
 })
 
 app.get('/', async (req, res) => {
-  
-  
   res.send('Agent Care Api Up !!!')
 })
- 
+
+
+
 app.use('/api/auth', require('./routes/agentportal/v1/auth'))
 app.use('/api/createuser', require('./routes/agentportal/v1/createUser'))
 app.use('/api/profile', require('./routes/agentportal/v1/profile'))

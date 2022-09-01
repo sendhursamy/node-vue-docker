@@ -4,6 +4,3 @@ COPY package*.json index.js /
 COPY . .
 COPY config/dev_dbConfig.js config/dbConfig.js
 COPY config/dev_config config/config.js
-RUN npm install
-EXPOSE 3001
-CMD ["node", "index.js"]
