@@ -100,7 +100,7 @@ export default {
 
       var config = {
         method: 'post',
-        url: _URL +'auth',
+        url: _URL +'api/auth',
         headers: {
           'Content-Type': 'application/json'
         },

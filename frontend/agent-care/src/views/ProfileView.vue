@@ -136,7 +136,7 @@ export default {
       const _URL = process.env.VUE_APP_END_POINT;
       var config = {
         method: 'get',
-        url: _URL +'profile?api_token='+token,
+        url: _URL +'api/profile?api_token='+token,
         headers: {
           'Content-Type': 'application/json'
         }
