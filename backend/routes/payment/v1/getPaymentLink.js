@@ -15,12 +15,13 @@ router.post('/', thgAuth, async (req, res, next) => {
     if(paymentTokenDetails.code = 200) {
         if (res_status == 'Y') {
             const paymentLink = await getpaymentLink(agentCode, api_ref_id, api_user_id, api_key)
-            console.log('paymentLink', paymentLink.data.res_status);
+            console.log('paymentLink', paymentLink.data);
             if(paymentLink.code == 200) {
                 if (paymentLink.data.res_status == 'Y') {
                     res.status(paymentLink.code).send({
                         "code":200,
                         "paymentLink": paymentLink.data.payment_link,
+                        "due_amount": paymentLink.data.due_amount,
                         "mesage":''
                     })
                 }
