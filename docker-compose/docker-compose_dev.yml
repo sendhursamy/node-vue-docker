@@ -25,9 +25,9 @@ services:
       context: ./backend
       dockerfile: Dockerfile
     volumes:
-      - '.:/app'
-      - '/app/backend/node_modules'
-      - './backend/:/usr/app/backend'
+      # - '.:/app'
+      # - '/app/backend/node_modules'
+      # - './backend/:/usr/app/backend'
     ports:
       - "8041:3001"
     command: sh -c "npm install && npm run dev"
