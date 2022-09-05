@@ -4,7 +4,7 @@
     <NavBarwidget @close-event="toggleNav"></NavBarwidget>
     <div class="container-fluid px-2 px-md-4">
 
-      <div class="card card-body mx-3 mx-md-4">
+      <div class="card card-body mx-md-4">
         <div class="row">
 
           <div class="col-12 col-xl-4">
@@ -28,8 +28,12 @@
                 <!-- <hr class="horizontal gray-light my-4"> -->
                 <ul class="list-group">
                     
-                  <li class="list-group-item border-0 ps-0 pt-0 text-sm"><strong class="text-dark paybillLabel">Your payment:</strong>
-                    <span  v-if="paymentLink.trim()!=''" @click="pay(paymentLink)"><button  class="btn btn-primary payBill">Pay Bill</button></span>
+                  <li v-if="due_amount.trim()!=''" class="list-group-item border-0 ps-0 pt-0 text-sm"><strong class="text-dark paybillLabel">Your Due Amount :</strong>
+                    <span><b>{{due_amount}}</b></span>
+                    
+                    </li>
+                  <li v-if="paymentLink.trim()!=''" class="list-group-item border-0 ps-0 pt-0 text-sm"><strong class="text-dark paybillLabel">Click to Pay:</strong>
+                    <span  v-if="paymentLink.trim()!=''" @click="pay(paymentLink)"><button  class="btn btn-primary payBill">Pay Now</button></span>
                     <div class="no-link" v-else >No payment link is available now</div>
                     </li>
                   
@@ -53,7 +57,8 @@ export default {
     return {
       profiileDetails: [],
       token : localStorage.getItem("token"),
-      paymentLink :''
+      paymentLink :'',
+      due_amount:''
     }
   },
   components: {
@@ -116,6 +121,7 @@ export default {
         .then(function (response) {  
           if(response.data.code == 200 && response.data.paymentLink != ""){
             vm.paymentLink=response.data.paymentLink;
+            vm.due_amount=response.data.due_amount;
             console.log(vm.paymentLink+"joe")
           }else{
             console.warn('No payament link to you')
@@ -152,7 +158,8 @@ export default {
 }
 .payBill{
   cursor: pointer;
-  margin-left: 20px;
+  margin-left: 10px;
+  margin-top: 10px;
  
 }
 .paybillLabel{

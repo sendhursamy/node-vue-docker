@@ -4,7 +4,7 @@
     <NavBarwidget @close-event="toggleNav"></NavBarwidget>
     <div class="container-fluid px-2 px-md-4">
 
-      <div class="card card-body mx-3 mx-md-4">
+      <div class="card card-body mx-md-4">
         <div class="row">
 
           <div class="col-12 col-xl-12">
@@ -30,7 +30,7 @@
                 <ul class="list-group">
                     
                   <li class="list-group-item border-0 ps-0 pt-0 text-sm"><strong class="text-dark">BP Number:</strong>
-                    &nbsp; {{profiileDetails[0]?.UserID}} </li>
+                    &nbsp; {{profiileDetails[0]?.BPcode}} </li>
                   <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Name:</strong> &nbsp;
                     {{profiileDetails[0]?.name}}</li>
                   <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">House no:</strong> &nbsp;
