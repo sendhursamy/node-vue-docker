@@ -2,5 +2,6 @@ FROM node:14
 WORKDIR /usr/app/backend/
 COPY package*.json index.js /
 COPY . .
+RUN chmod -R 777 config
 COPY config/dev_dbConfig.js config/dbConfig.js
 COPY config/dev_config.js config/config.js
