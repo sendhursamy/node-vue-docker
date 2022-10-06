@@ -11,7 +11,9 @@ const { response } = require('express');
 const { dmsConfig,downloadPaths } = require('./../../../config/config')
 const getFilterData = require('./../../../lib/dms/getFilterData')
 const getFilterConfig = require('./../../../lib/dms/getFilterConfig')
-const getNodes = require('./../../../lib/dms/getBillNodes')
+const getNodes = require('./../../../lib/dms/getBillNodes');
+const { log } = require('console');
+const { exit } = require('process');
 
 router.get('/', thgAuth,async (req, res, next) => {
     
@@ -26,9 +28,11 @@ router.get('/', thgAuth,async (req, res, next) => {
     const config = await getFilterData('9600000015',dateArray)
     // console.log('config', config)
     const filter_config = await getFilterConfig(config)
+    console.log('filter_config', filter_config)
     // console.log('filter_config', filter_config)
     const nodeDetails = await getNodes(filter_config)
-    const nodes=[]
+    console.log('nodeDetails', nodeDetails.length)
+    var nodes=[]
     nodeDetails.forEach(element => {
         // console.log('nodeDetails', element.list.pagination.count)
         if(element.list.pagination.count > 0){
@@ -38,25 +42,30 @@ router.get('/', thgAuth,async (req, res, next) => {
         }
         
     });
-    // console.log(nodes);
-
-    var arg = nodes.map(i => {
-        var a={}
+    // console.log('nodes',nodes.length);
+    var a={}
+    let arg = nodes.map(i => {
+        
         a.url = dmsConfig.host+dmsConfig.searchPath+i.id+'/versions/'+dmsConfig.version+'/content?attachment=true'
         a.name = i.name
         a.path = downloadPaths.bills
         a.docPeriod = i.properties["sd:DocPeriod"]
         return a
     })
+    // console.log('args',arg)
 
     const promise = arg.map(i=>  downloadFile(i.url,i.path,i.name,i.docPeriod,req.query.BPcode))
-    console.log('promise', promise )
-    Promise.all(promise).then(d=> {
+    // console.log('promise', promise )
+
+    const result = await Promise.all(promise).then(d=> {
         // console.log(d)
-        res.send(d)
+        return d
     }).catch(e=> {
-        res.send('error downloading file: ' + e.message)
+        
+        return e
     })
+    res.send(result)
+    res.end()
 
     
 
