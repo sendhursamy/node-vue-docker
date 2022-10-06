@@ -1,5 +1,6 @@
 const express = require('express')
 const helmet = require("helmet");
+const log = require('./lib/logger')
 
 const app = express()
 require('dotenv').config()
@@ -13,7 +14,6 @@ Object.defineProperty(Date.prototype, 'YYYYMMDDHHMMSS', {
     function pad2(n) {  // always returns a string
       return (n < 10 ? '0' : '') + n;
     }
-
     return this.getFullYear() +
       pad2(this.getMonth() + 1) +
       pad2(this.getDate()) +
@@ -57,3 +57,5 @@ app.use('/api/createuser', require('./routes/agentportal/v1/createUser'))
 app.use('/api/profile', require('./routes/agentportal/v1/profile'))
 app.use('/api/getpaymentlink', require('./routes/payment/v1/getPaymentLink'))
 app.use('/api/changepassword', require('./routes/agentportal/v1/changePassword'))
+app.use('/api/getbill', require('./routes/agentportal/v1/getbill'))
+app.use('/api/download', require('./routes/agentportal/v1/download'))

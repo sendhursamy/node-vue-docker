@@ -41,6 +41,7 @@ const insertUser = async (userDetails) => {
                 "${md5(userDetails.tb_UP_password)}"
 
                 )`;
+            console.log(query)
             const rows = await sql.query(query);
             if(rows[0].insertId){
                 // paytmEventLog('info',`Db - ${userDetails.agentcode} -user insert success`)
