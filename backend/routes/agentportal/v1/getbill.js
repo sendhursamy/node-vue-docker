@@ -8,12 +8,12 @@ const FormData = require('form-data');
 const { request } = require('http');
 const downloadFile = require('./../../../lib/downloadFile');
 const { response } = require('express');
-const { downloadPaths } = require('./../../../config/config')
+const { dmsConfig,downloadPaths } = require('./../../../config/config')
 const getFilterData = require('./../../../lib/dms/getFilterData')
 const getFilterConfig = require('./../../../lib/dms/getFilterConfig')
 const getNodes = require('./../../../lib/dms/getBillNodes')
 
-router.get('/', async (req, res, next) => {
+router.get('/', thgAuth,async (req, res, next) => {
     
     var d = new Date();
     dateArray = []
@@ -42,30 +42,23 @@ router.get('/', async (req, res, next) => {
 
     var arg = nodes.map(i => {
         var a={}
-        a.url = 'https://dms-test.thehindu.co.in/alfresco/api/-default-/public/alfresco/versions/1/nodes/'+i.id+'/versions/1.0/content?attachment=true'
+        a.url = dmsConfig.host+dmsConfig.searchPath+i.id+'/versions/'+dmsConfig.version+'/content?attachment=true'
         a.name = i.name
         a.path = downloadPaths.bills
         a.docPeriod = i.properties["sd:DocPeriod"]
         return a
     })
 
-    const promise = arg.map(i=>  downloadFile(i.url,i.path,i.name,i.docPeriod))
+    const promise = arg.map(i=>  downloadFile(i.url,i.path,i.name,i.docPeriod,req.query.BPcode))
     console.log('promise', promise )
     Promise.all(promise).then(d=> {
-        console.log(d)
-        res.send('file downloaded')
+        // console.log(d)
+        res.send(d)
     }).catch(e=> {
         res.send('error downloading file: ' + e.message)
     })
 
-    console.log('aaa',arg);
-
-    // const url = 'https://dms-test.thehindu.co.in/alfresco/api/-default-/public/alfresco/versions/1/nodes/da2a8a22-3281-4384-88b0-7fee7b551ef2/versions/1.0/content?attachment=true'
-    // const path = downloadPaths.bills
-    // console.log(path)
-    // const down = await downloadFile(url, path, 'test1.docx');
     
-   // res.send('ok')
 
 })
 module.exports = router

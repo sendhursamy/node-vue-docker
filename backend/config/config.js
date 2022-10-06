@@ -15,7 +15,8 @@ const paymentConfig = {
 
 const dmsConfig = {
     "host": "https://dms-test.thehindu.co.in",
-    "searchPath": "/alfresco/api/-default-/public/search/versions/1/search",
+    "searchPath": "/alfresco/api/-default-/public/alfresco/versions/1/nodes/",
+    "version": "1.0",
     "username": "admin",
     "password": "admin",
 
@@ -27,6 +28,7 @@ const downloadPaths = {
 
 module.exports = {
     paymentConfig,
-    downloadPaths
+    downloadPaths,
+    dmsConfig
 }
 
