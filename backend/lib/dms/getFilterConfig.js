@@ -7,6 +7,7 @@ const getFilterConfig = async (config) => {
     var getConfig = new Promise((resolve, reject) => {
         if (config.length > 0) {
             config.forEach(async (i, index) => {
+                console.log('configqqqqq',i)
                 var c = {
                     method: 'post',
                     url: 'https://dms-test.thehindu.co.in/alfresco/api/-default-/public/search/versions/1/search',
@@ -20,6 +21,7 @@ const getFilterConfig = async (config) => {
                 var p = axios(c)
                 configArray.push(p)
                 if (index === config.length - 1) {
+                
                     resolve();
                 }
             });

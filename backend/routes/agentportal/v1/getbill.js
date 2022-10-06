@@ -26,25 +26,26 @@ router.get('/', thgAuth,async (req, res, next) => {
     }
     
     const config = await getFilterData('9600000015',dateArray)
+
     // console.log('config', config)
     const filter_config = await getFilterConfig(config)
     console.log('filter_config', filter_config)
     // console.log('filter_config', filter_config)
     const nodeDetails = await getNodes(filter_config)
-    console.log('nodeDetails', nodeDetails.length)
+    // console.log('nodeDetails', nodeDetails.length)
     var nodes=[]
     nodeDetails.forEach(element => {
         // console.log('nodeDetails', element.list.pagination.count)
         if(element.list.pagination.count > 0){
             var t = element.list.entries[0].entry
-            // console.log(t);
+            console.log('chekkkkkk',t);
             nodes.push(t);
         }
         
     });
     // console.log('nodes',nodes.length);
-    var a={}
     let arg = nodes.map(i => {
+        var a={}
         
         a.url = dmsConfig.host+dmsConfig.searchPath+i.id+'/versions/'+dmsConfig.version+'/content?attachment=true'
         a.name = i.name
@@ -52,7 +53,7 @@ router.get('/', thgAuth,async (req, res, next) => {
         a.docPeriod = i.properties["sd:DocPeriod"]
         return a
     })
-    // console.log('args',arg)
+    console.log('args',arg)
 
     const promise = arg.map(i=>  downloadFile(i.url,i.path,i.name,i.docPeriod,req.query.BPcode))
     // console.log('promise', promise )
