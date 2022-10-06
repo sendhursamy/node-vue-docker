@@ -25,10 +25,12 @@ const dmsConfig = {
 const downloadPaths = {
     "bills": "/usr/app/backend/files/bills/"
 }
+const basicAuth = 'YWRtaW46YWRtaW4='
 
 module.exports = {
     paymentConfig,
     downloadPaths,
-    dmsConfig
+    dmsConfig,
+    basicAuth
 }
 

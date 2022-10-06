@@ -3,6 +3,7 @@
 const Fs = require('fs')
 const Path = require('path')
 const Axios = require('axios')
+const {basicAuth} = require('./../config/config')
 
 async function downloadFile(fileUrl, filePath, filename, date, BPcode) {
   const url = fileUrl
@@ -24,7 +25,7 @@ async function downloadFile(fileUrl, filePath, filename, date, BPcode) {
     url,
     headers: {
       
-      'Authorization': 'Basic YWRtaW46YWRtaW4='
+      'Authorization': 'Basic '+basicAuth
     },
     method: 'GET',
     responseType: 'stream'
