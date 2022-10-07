@@ -1,6 +1,7 @@
 var axios = require('axios');
+const { dmsConfig } = require('./../../config/config')
 
-const getnodeDetails = async () => {
+const getnodeDetails = async (dates) => {
     var data = JSON.stringify({
         "query": {
             "query": "TYPE:'sd:BusinessDocuments'  and =sd:BizDocType:'Bill'  and =sd:Code:'9600000015' and =sd:DocPeriod:'202208' or =sd:DocPeriod:'202207'or =sd:DocPeriod:'202206'or =sd:DocPeriod:'202205'or =sd:DocPeriod:'202204'  "
@@ -24,7 +25,7 @@ const getnodeDetails = async () => {
 
     var config = {
         method: 'post',
-        url: 'https://dms-test.thehindu.co.in/alfresco/api/-default-/public/search/versions/1/search',
+        url: dmsConfig.host + dmsConfig.searchPath,
         headers: {
             'accept': 'application/json',
             'authorization': 'Basic YWRtaW46YWRtaW4=',
