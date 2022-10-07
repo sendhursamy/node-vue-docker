@@ -1,5 +1,5 @@
 <template>
-    <li class="list-group-item border-0 d-flex justify-content-between ps-0 border-radius-lg">
+    <li class="list-group-item border-0 d-flex justify-content-between align-items-center ps-0 border-radius-lg">
         <div class="d-flex flex-column">
             <h6 class="text-dark mb-1 font-weight-bold text-sm">{{ heading }}</h6>
         </div>
