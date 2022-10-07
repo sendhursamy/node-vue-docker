@@ -11,12 +11,12 @@
               <div class="col-6 d-flex align-items-center">
                 <h6 class="mb-0">Invoices</h6>
               </div>
-              <div class="col-md-6 text-end">
+              <!-- <div class="col-md-6 text-end">
                 <button class="btn btn-outline-primary btn-sm mb-0">View All</button>
-              </div>
+              </div> -->
             </div>
           </div>
-          <div class="card-body p-3 pb-0">
+          <div class="card-body p-3 pb-0" :class="{'text-center': isLoading}">
             <div class="spinner-border" role="status" v-if="isLoading"></div>
             <ul class="list-group" v-else-if="bills.length > 0">
               <BillViewListTile v-for="bill, index in bills" :key="index" :heading="bill.date"
