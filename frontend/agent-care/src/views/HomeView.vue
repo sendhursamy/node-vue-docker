@@ -114,7 +114,7 @@ export default {
             vm.$store.state.auth.isLogedIn = true
             vm.$store.state.auth.token = response.data.data.token.userToken
             localStorage.setItem("token",response.data.data.token.userToken);
-            vm.$router.push('/profile');            
+            vm.$router.push('/bills');            
           }else{vm.showInvalidMessage = true}
         })
        .catch(function (error) {
@@ -132,7 +132,7 @@ export default {
   },
   mounted() {
     if(this.token){
-      this.$router.push({name:"profile"})
+      this.$router.push({name:"bills"})
     }
     this.focusInput();
   }

@@ -1,75 +1,33 @@
 <template>
   <MenuWidget @close-event="toggleNav"></MenuWidget>
   <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
-  <NavBarwidget @close-event="toggleNav"></NavBarwidget>
-     <div class="container-fluid py-4">
-      <div class="card h-100">
-            <div class="card-header pb-0 p-3">
-              <div class="row">
-                <div class="col-6 d-flex align-items-center">
-                  <h6 class="mb-0">Invoices</h6>
-                </div>
-                <div class="col-6 text-end">
-                  <button class="btn btn-outline-primary btn-sm mb-0">View All</button>
-                </div>
+    <NavBarwidget @close-event="toggleNav"></NavBarwidget>
+    <div class="container-fluid py-4">
+      <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-sm-12 col-md-6 card h-100">
+          <div class="card-header pb-0 p-3">
+            <div class="row">
+              <div class="col-6 d-flex align-items-center">
+                <h6 class="mb-0">Invoices</h6>
               </div>
-            </div>
-            <div class="card-body p-3 pb-0">
-              <ul class="list-group">
-                <li class="list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg">
-                  <div class="d-flex flex-column">
-                    <h6 class="mb-1 text-dark font-weight-bold text-sm">March 01, 2020</h6>
-                    <span class="text-xs">#MS-415646</span>
-                  </div>
-                  <div class="d-flex align-items-center text-sm">
-                   ₹ 180
-                    <button class="btn btn-link text-dark text-sm mb-0 px-0 ms-4"><i class="material-icons text-lg position-relative me-1">picture_as_pdf</i> PDF</button>
-                  </div>
-                </li>
-                <li class="list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg">
-                  <div class="d-flex flex-column">
-                    <h6 class="text-dark mb-1 font-weight-bold text-sm">February 10, 2021</h6>
-                    <span class="text-xs">#RV-126749</span>
-                  </div>
-                  <div class="d-flex align-items-center text-sm">
-                   ₹ 250
-                    <button class="btn btn-link text-dark text-sm mb-0 px-0 ms-4"><i class="material-icons text-lg position-relative me-1">picture_as_pdf</i> PDF</button>
-                  </div>
-                </li>
-                <li class="list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg">
-                  <div class="d-flex flex-column">
-                    <h6 class="text-dark mb-1 font-weight-bold text-sm">April 05, 2020</h6>
-                    <span class="text-xs">#FB-212562</span>
-                  </div>
-                  <div class="d-flex align-items-center text-sm">
-                   ₹ 560
-                    <button class="btn btn-link text-dark text-sm mb-0 px-0 ms-4"><i class="material-icons text-lg position-relative me-1">picture_as_pdf</i> PDF</button>
-                  </div>
-                </li>
-                <li class="list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg">
-                  <div class="d-flex flex-column">
-                    <h6 class="text-dark mb-1 font-weight-bold text-sm">June 25, 2019</h6>
-                    <span class="text-xs">#QW-103578</span>
-                  </div>
-                  <div class="d-flex align-items-center text-sm">
-                   ₹ 120
-                    <button class="btn btn-link text-dark text-sm mb-0 px-0 ms-4"><i class="material-icons text-lg position-relative me-1">picture_as_pdf</i> PDF</button>
-                  </div>
-                </li>
-                <li class="list-group-item border-0 d-flex justify-content-between ps-0 border-radius-lg">
-                  <div class="d-flex flex-column">
-                    <h6 class="text-dark mb-1 font-weight-bold text-sm">March 01, 2019</h6>
-                    <span class="text-xs">#AR-803481</span>
-                  </div>
-                  <div class="d-flex align-items-center text-sm">
-                   ₹ 300
-                    <button class="btn btn-link text-dark text-sm mb-0 px-0 ms-4"><i class="material-icons text-lg position-relative me-1">picture_as_pdf</i> PDF</button>
-                  </div>
-                </li>
-              </ul>
+              <!-- <div class="col-md-6 text-end">
+                <button class="btn btn-outline-primary btn-sm mb-0">View All</button>
+              </div> -->
             </div>
           </div>
-     </div>
+          <div class="card-body p-3 pb-0" :class="{'text-center': isLoading}">
+            <div class="spinner-border" role="status" v-if="isLoading"></div>
+            <ul class="list-group" v-else-if="bills.length > 0">
+              <BillViewListTile v-for="bill, index in bills" :key="index" :heading="bill.date"
+                :download-link="bill.href" />
+            </ul>
+            <div v-else>No bills available</div>
+          </div>
+        </div>
+        <div class="col-3"></div>
+      </div>
+    </div>
   </main>
 </template>
 
@@ -77,49 +35,83 @@
 
 import MenuWidget from '@/components/MenuView.vue'
 import NavBarwidget from '@/components/NavBarView.vue'
+import BillViewListTile from '@/components/BillViewListTile';
+
+import getMonthFromString from '@/utils/getMonthFromString'
+import { process } from 'ipaddr.js';
 
 export default {
+  data() {
+    return {
+      bills: [],
+      isLoading: false
+    }
+  },
   components: {
     MenuWidget,
-    NavBarwidget
+    NavBarwidget,
+    BillViewListTile
   },
-    methods: {
+  methods: {
     toggleNav() {
-     let body = document.getElementsByTagName('body')[0];
-    let className = 'g-sidenav-pinned';
-    const iconSidenav = document.getElementById('iconSidenav');
-    const sidenav = document.getElementById('sidenav-main');
-     if (body.classList.contains(className)) {
-    body.classList.remove(className);
-    setTimeout(function() {
-      sidenav.classList.remove('bg-white');
-    }, 100);
-    sidenav.classList.remove('bg-transparent');
+      let body = document.getElementsByTagName('body')[0];
+      let className = 'g-sidenav-pinned';
+      const iconSidenav = document.getElementById('iconSidenav');
+      const sidenav = document.getElementById('sidenav-main');
+      if (body.classList.contains(className)) {
+        body.classList.remove(className);
+        setTimeout(function () {
+          sidenav.classList.remove('bg-white');
+        }, 100);
+        sidenav.classList.remove('bg-transparent');
 
-  } else {
-    body.classList.add(className);
-    sidenav.classList.add('bg-white');
-    sidenav.classList.remove('bg-transparent');
-    iconSidenav.classList.remove('d-none');
-  }
+      } else {
+        body.classList.add(className);
+        sidenav.classList.add('bg-white');
+        sidenav.classList.remove('bg-transparent');
+        iconSidenav.classList.remove('d-none');
+      }
     },
-     removenav(){
-    let body = document.getElementsByTagName('body')[0];
-    let className = 'g-sidenav-pinned';
-   // const iconSidenav = document.getElementById('iconSidenav');
-    const sidenav = document.getElementById('sidenav-main');
-     if (body.classList.contains(className)) {
-    body.classList.remove(className);
-    setTimeout(function() {
-      sidenav.classList.remove('bg-white');
-    }, 100);
-    sidenav.classList.remove('bg-transparent');
+    removenav() {
+      let body = document.getElementsByTagName('body')[0];
+      let className = 'g-sidenav-pinned';
+      // const iconSidenav = document.getElementById('iconSidenav');
+      const sidenav = document.getElementById('sidenav-main');
+      if (body.classList.contains(className)) {
+        body.classList.remove(className);
+        setTimeout(function () {
+          sidenav.classList.remove('bg-white');
+        }, 100);
+        sidenav.classList.remove('bg-transparent');
 
-  }
-  }
-},
-  mounted(){
+      }
+    },
+    async getBills() {
+      this.isLoading = true
+      if (localStorage.getItem("token") == null) {
+        this.isLoading = false
+        window.location.replace("/")
+      }
+
+      const endpoint = `${process.env.VUE_APP_BILLS_ENDPOINT}?api_token=${localStorage.getItem("token")}`
+      const bills = await fetch(endpoint)
+        .then(res => res.json())
+        .then(data => data)
+        .catch(err => {
+          console.log(err);
+          return []
+        })
+
+      this.bills = bills.map(bill => ({
+        href: `${process.env.VUE_APP_DOWNLOAD_BILL_ENDPOINT}${bill.filename}?api_token=${localStorage.getItem("token")}`,
+        date: getMonthFromString(bill.date)
+      }))
+      this.isLoading = false
+    }
+  },
+  mounted() {
     this.removenav();
+    this.getBills()
   }
 }
 </script>

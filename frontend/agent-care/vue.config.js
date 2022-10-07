@@ -6,7 +6,7 @@ module.exports = defineConfig({
     port: 8042
   },
   pwa: {
-    name: 'Agent Care Portal',
-    themeColor: '#133b5a'
+    name: process.env.VUE_APP_MODE == "test" ? 'Agent Care Portal - TEST MODE' : 'Agent Care Portal',
+    themeColor: process.env.VUE_APP_MODE == "test" ? '#FED000' : '#133b5a'
   }
 })
