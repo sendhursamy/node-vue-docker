@@ -25,7 +25,7 @@ router.get('/', thgAuth,async (req, res, next) => {
         dateArray.push(d.toISOString().split(':')[0].split('-')[0] + '' + d.toISOString().split(':')[0].split('-')[1])
     }
     
-    const config = await getFilterData('9600000015',dateArray)
+    const config = await getFilterData(req.query.BPcode,dateArray)
 
     // console.log('config', config)
     const filter_config = await getFilterConfig(config)
