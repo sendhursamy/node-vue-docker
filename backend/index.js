@@ -1,6 +1,6 @@
 const express = require('express')
 const helmet = require("helmet");
-const log = require('./lib/logger')
+const logger = require('./lib/logger')
 
 const app = express()
 require('dotenv').config()
@@ -47,6 +47,7 @@ app.listen(port, () => {
 })
 
 app.get('/', async (req, res) => {
+  logger.info('Agent care APP listening at http://localhost:${port}')
   res.send('Agent Care Api Up !!!')
 })
 

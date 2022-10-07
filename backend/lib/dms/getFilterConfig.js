@@ -1,16 +1,15 @@
 var axios = require('axios');
+const { dmsConfig } = require('./../../config/config');
 
 const getFilterConfig = async (config) => {
-
-
     configArray = []
     var getConfig = new Promise((resolve, reject) => {
         if (config.length > 0) {
             config.forEach(async (i, index) => {
-                console.log('configqqqqq',i)
+                console.log('configqqqqq', i)
                 var c = {
                     method: 'post',
-                    url: 'https://dms-test.thehindu.co.in/alfresco/api/-default-/public/search/versions/1/search',
+                    url: dmsConfig.host + dmsConfig.searchPath,
                     headers: {
                         'accept': 'application/json',
                         'authorization': 'Basic YWRtaW46YWRtaW4=',
@@ -21,7 +20,7 @@ const getFilterConfig = async (config) => {
                 var p = axios(c)
                 configArray.push(p)
                 if (index === config.length - 1) {
-                
+
                     resolve();
                 }
             });
@@ -33,27 +32,6 @@ const getFilterConfig = async (config) => {
 
     await getConfig
     return configArray
-
-    // var config = {
-    //     method: 'post',
-    //     url: 'https://dms-test.thehindu.co.in/alfresco/api/-default-/public/search/versions/1/search',
-    //     headers: {
-    //         'accept': 'application/json',
-    //         'authorization': 'Basic YWRtaW46YWRtaW4=',
-    //         'Content-Type': 'application/json'
-    //     },
-    //     data: data
-    // };
-
-    // axios(config)
-    //     .then(function (response) {
-    //         console.log(JSON.stringify(response.code));
-
-    //         return response.data;
-    //     })
-    //     .catch(function (error) {
-    //         console.log(error);
-    //     });
 }
 
 module.exports = getFilterConfig

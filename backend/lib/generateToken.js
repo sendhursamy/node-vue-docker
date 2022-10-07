@@ -1,7 +1,6 @@
 var jwt = require('jsonwebtoken');
 
 const getToken = async (agentCode) =>{
-    console.log(process.env.JWT_SECRET);
     const userToken = jwt.sign({
         data: agentCode
       }, process.env.JWT_SECRET, { expiresIn: '1d'});
@@ -14,7 +13,6 @@ const getToken = async (agentCode) =>{
         userToken,
         // refereshToken
     }
-    console.log(token);
     return token
 }
 

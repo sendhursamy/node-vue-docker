@@ -47,7 +47,7 @@ router.get('/', thgAuth,async (req, res, next) => {
     let arg = nodes.map(i => {
         var a={}
         
-        a.url = dmsConfig.host+dmsConfig.searchPath+i.id+'/versions/'+dmsConfig.version+'/content?attachment=true'
+        a.url = dmsConfig.host+dmsConfig.downloadPath+i.id+'/versions/'+dmsConfig.version+'/content?attachment=true'
         a.name = i.name
         a.path = downloadPaths.bills
         a.docPeriod = i.properties["sd:DocPeriod"]
