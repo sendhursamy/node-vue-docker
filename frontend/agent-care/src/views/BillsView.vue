@@ -93,8 +93,7 @@ export default {
         window.location.replace("/")
       }
 
-      const endpoint = process.env.VUE_APP_END_POINT + "api/getbill?api_token=" + localStorage.getItem("token")
-      console.log(endpoint);
+      const endpoint = `${process.env.VUE_APP_BILLS_ENDPOINT}?api_token=${localStorage.getItem("token")}`
       const bills = await fetch(endpoint)
         .then(res => res.json())
         .then(data => data)
@@ -104,7 +103,7 @@ export default {
         })
 
       this.bills = bills.map(bill => ({
-        href: process.env.VUE_APP_END_POINT + "api/download/" + bill.filename + "?api_token=" + localStorage.getItem("token"),
+        href: `${process.env.VUE_APP_DOWNLOAD_BILL_ENDPOINT}${bill.filename}?api_token=${localStorage.getItem("token")}`,
         date: getMonthFromString(bill.date)
       }))
       this.isLoading = false
