@@ -4,17 +4,21 @@ const month_numeric_string_map = {
 }
 
 const getMonthFromString = (monthYearString) => {
+    // Separate into individual characters
     const separated_strings = [...monthYearString]
     const str_len = monthYearString.length
+
+    // Last two characters represent month
     const month = month_numeric_string_map[
         separated_strings[str_len - 2] + separated_strings[str_len - 1]
     ]
 
+    // Pop the last two characters (month strings)
     separated_strings.pop()
     separated_strings.pop()
 
+    // Join again after popping to get the year
     const year = separated_strings.join("")
-    console.log(`${month}, ${year}`)
     return `${month}, ${year}`
 }
 
