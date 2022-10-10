@@ -32,7 +32,7 @@
                     <span><b>{{due_amount}}</b></span>
                     
                     </li>
-                  <li v-if="paymentLink.trim()!=''" class="list-group-item border-0 ps-0 pt-0 text-sm"><strong class="text-dark paybillLabel">Click to Pay:</strong>
+                  <li class="list-group-item border-0 ps-0 pt-0 text-sm"><strong class="text-dark paybillLabel">{{ paymentLink.trim()!='' ? "Click to pay:" : "" }}</strong>
                     <span  v-if="paymentLink.trim()!=''" @click="pay(paymentLink)"><button  class="btn btn-primary payBill">Pay Now</button></span>
                     <div class="no-link" v-else >No payment link is available now</div>
                     </li>
