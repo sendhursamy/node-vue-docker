@@ -2,13 +2,13 @@
 FROM node:lts-alpine
 
 # set working directory
-WORKDIR /usr/app/frontend/agent-care/
+WORKDIR /usr/app/frontend/curd-operation/
 RUN npm install -g @vue/cli
 # add `/app/node_modules/.bin` to $PATH
-ENV PATH /app/frontend/agebt-care/node_modules/.bin:$PATH
+ENV PATH /app/frontend/curd-operation/node_modules/.bin:$PATH
 
 # install app dependencies
-COPY ./agent-care/package.json ./
+COPY ./curd-operation/package.json ./
 # COPY package-lock.json ./
 COPY . .
 RUN npm install --silent

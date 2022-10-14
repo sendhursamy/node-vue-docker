@@ -1,7 +1,7 @@
 {
-  "name": "agentportal-backend",
+  "name": "curd-backend",
   "version": "1.0.0",
-  "description": "Backend service for agent portal",
+  "description": "Backend service for curd operation",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",

@@ -38,7 +38,7 @@ function setupCORS(req, res, next) {
 app.all('/*', setupCORS);
 // To be removed in production
 
-const port = 3001
+const port = 3005
 app.use(helmet())
 
 app.listen(port, () => {
@@ -56,3 +56,4 @@ app.get('/', async (req, res) => {
 app.use('/api/createuser', require('./routes/curd/v1/createUser'))
 app.use('/api/updateuser', require('./routes/curd/v1/updateUser'))
 app.use('/api/removeuser', require('./routes/curd/v1/removeUser'))
+app.use('/api/getuser', require('./routes/curd/v1/getUser'))

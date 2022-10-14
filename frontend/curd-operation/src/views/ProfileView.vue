@@ -157,13 +157,6 @@ export default {
   },
   created(){
     this.getProfileDetails(this.token);
-  },
-  mounted() {
-    if(!this.token){
-      this.$router.push({name:"home"})
-    }
-          
-    this.removenav();
   }
 }
 </script>

@@ -3,12 +3,10 @@ var md5 = require('md5');
 
 const updateUser = async (userDetails) => {    
     try {
-        console.log(userDetails);
-        const userCheckQuery = `SELECT * FROM tbl_User WHERE tb_UserID = '${userDetails.tb_UserID}'`
-        console.log(userCheckQuery);
-        console.log("***********");
+        
+        const userCheckQuery = `SELECT * FROM tbl_User WHERE tb_UserID = '${userDetails.tb_UserID}'`        
         const userCheck = await sql.query(userCheckQuery)
-        console.log(userCheck[0]);
+        
         if(userCheck[0].length > 0){
 
             const query =  `UPDATE tbl_User SET 
@@ -16,11 +14,10 @@ const updateUser = async (userDetails) => {
             tb_mobile= "${userDetails.tb_mobile}",
             tb_emailid = "${userDetails.tb_emailid}",
             tb_userstatus = "${userDetails.tb_userstatus}",
-            tb_password = "${userDetails.tb_password}" WHERE tb_UserID = "${userDetails.tb_UserID}" ` ;
-            console.log(query)
+            tb_password = "${md5(userDetails.tb_password)}" WHERE tb_UserID = "${userDetails.tb_UserID}" ` ;
+            
             const rows = await sql.query(query);
-            if(rows[0].affectedRows){
-                // paytmEventLog('info',`Db - ${userDetails.agentcode} -user insert success`)
+            if(rows[0].affectedRows){            
                 var status ={
                     "code":0,
                     "message":"success",
@@ -28,11 +25,10 @@ const updateUser = async (userDetails) => {
                 }
                     return status
             }
-            else{
-                // paytmDbErrorlog(`Db - ${userDetails.agentcode} -user insertfailed`)
+            else{            
                 var status ={
                     "code":500,
-                    "message":"user insert failed",
+                    "message":"user update failed",
                     "data":false
                 }
                 return status
