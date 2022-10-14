@@ -5,7 +5,7 @@ const insertUser = async (userDetails) => {
     // tb_UP_UserID,tb_UP_BPcode,tb_UP_BPDesc,tb_UP_title,tb_UP_name,tb_UP_houseno,tb_UP_street1,tb_UP_street2,tb_UP_street3,tb_UP_street4,tb_UP_city,tb_UP_district,tb_UP_postalcode,tb_UP_regionname,tb_UP_mobile,tb_UP_emailid,tb_UP_usergroup,tb_UP_userstatus,tb_UP_password,tb_UP_createddate,tb_UP_updateddate
     try {
         console.log(userDetails);
-        const userCheckQuery = `SELECT * FROM tbl_UserProfile WHERE tb_UP_BPcode = '${userDetails.tb_UP_BPcode}'`
+        const userCheckQuery = `SELECT * FROM tbl_User WHERE tb_UserID = '${userDetails.tb_UserID}'`
         console.log(userCheckQuery);
         const userCheck = await sql.query(userCheckQuery)
         console.log(userCheck[0]);
@@ -19,30 +19,19 @@ const insertUser = async (userDetails) => {
         }
         else{
             // tb_UP_UserID,tb_UP_BPcode,tb_UP_BPDesc,tb_UP_title,tb_UP_name,tb_UP_houseno,tb_UP_street1,tb_UP_street2,tb_UP_street3,tb_UP_street4,tb_UP_city,tb_UP_district,tb_UP_postalcode,tb_UP_regionname,tb_UP_mobile,tb_UP_emailid,tb_UP_usergroup,tb_UP_userstatus,tb_UP_password,tb_UP_createddate,tb_UP_updateddate
-
-            const query = `INSERT into tbl_UserProfile(tb_UP_BPcode,tb_UP_BPDesc,tb_UP_title,tb_UP_name,tb_UP_houseno,tb_UP_street1,tb_UP_street2,tb_UP_street3,tb_UP_street4,tb_UP_city,tb_UP_district,tb_UP_postalcode,tb_UP_regionname,tb_UP_mobile,tb_UP_emailid,tb_UP_usergroup,tb_UP_userstatus,tb_UP_password) VALUES (
-                "${userDetails.tb_UP_BPcode}",
-                "${userDetails.tb_UP_BPDesc}",
-                "${userDetails.tb_UP_title}",
-                "${userDetails.tb_UP_name}",
-                "${userDetails.tb_UP_houseno}",
-                "${userDetails.tb_UP_street1}",
-                "${userDetails.tb_UP_street2}",
-                "${userDetails.tb_UP_street3}",
-                "${userDetails.tb_UP_street4}",
-                "${userDetails.tb_UP_city}",
-                "${userDetails.tb_UP_district}",
-                "${userDetails.tb_UP_postalcode}",
-                "${userDetails.tb_UP_regionname}",
-                "${userDetails.tb_UP_mobile}",
-                "${userDetails.tb_UP_emailid}",
-                "${userDetails.tb_UP_usergroup}",
-                "${userDetails.tb_UP_userstatus}",
-                "${md5(userDetails.tb_UP_password)}"
+           
+            
+            const query = `INSERT into tbl_User(tb_name,tb_mobile,tb_emailid,tb_userstatus,tb_password) VALUES (
+                "${userDetails.tb_name}",
+                "${userDetails.tb_mobile}",
+                "${userDetails.tb_emailid}",
+                "${userDetails.tb_userstatus}",
+                "${md5(userDetails.tb_password)}"
 
                 )`;
             console.log(query)
             const rows = await sql.query(query);
+            console.log(rows)
             if(rows[0].insertId){
                 // paytmEventLog('info',`Db - ${userDetails.agentcode} -user insert success`)
                 var status ={

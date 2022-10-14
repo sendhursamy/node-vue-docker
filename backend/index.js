@@ -47,16 +47,12 @@ app.listen(port, () => {
 })
 
 app.get('/', async (req, res) => {
-  logger.info('Agent care APP listening at http://localhost:${port}')
-  res.send('Agent Care Api Up !!!')
+  logger.info(`Curd profile listening at http://localhost:${port}`)
+  res.send('CURD profile !!!')
 })
 
 
 
-app.use('/api/auth', require('./routes/agentportal/v1/auth'))
-app.use('/api/createuser', require('./routes/agentportal/v1/createUser'))
-app.use('/api/profile', require('./routes/agentportal/v1/profile'))
-app.use('/api/getpaymentlink', require('./routes/payment/v1/getPaymentLink'))
-app.use('/api/changepassword', require('./routes/agentportal/v1/changePassword'))
-app.use('/api/getbill', require('./routes/agentportal/v1/getbill'))
-app.use('/api/download', require('./routes/agentportal/v1/download'))
+app.use('/api/createuser', require('./routes/curd/v1/createUser'))
+app.use('/api/updateuser', require('./routes/curd/v1/updateUser'))
+app.use('/api/removeuser', require('./routes/curd/v1/removeUser'))

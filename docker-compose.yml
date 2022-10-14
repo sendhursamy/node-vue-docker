@@ -36,7 +36,7 @@ services:
       NODE_ENV: dev
       TZ: Asia/Calcutta
     networks:
-      - agent-portal
+      - curd-opreation
   db:
     image: mysql
     volumes:
@@ -46,13 +46,13 @@ services:
       - SYS_NICE
     environment:
       MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: Agent_Care
-      MYSQL_USER: agentportal
-      MYSQL_PASSWORD: agentportal
+      MYSQL_DATABASE: curd_User
+      MYSQL_USER: curd
+      MYSQL_PASSWORD: curd123
     ports:
       - "3310:3306"
     networks:
-      - agent-portal
+      - curd-opreation
   phpmyadmin:
     image: phpmyadmin/phpmyadmin:latest
     restart: always
@@ -63,10 +63,10 @@ services:
     ports:
       - "8042:80"
     networks:
-      - agent-portal
+      - curd-opreation
   
 networks:
-  agent-portal:
+  curd-opreation:
     driver: bridge
 volumes:
   db_data: {}

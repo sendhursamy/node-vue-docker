@@ -1,1 +1,1 @@
-INSERT INTO `agentportal`.`profile`( `agentcode`, `name`, `password`, `role`, `email`, `mobile`, `status`) VALUES ('1001','Raja','40be4e59b9a2a2b5dffb918c0e86b3d7','admin','raja.d@thehindu.co.in','9633569361','active')
+INSERT INTO `tbl_User` (`tb_UserID`, `tb_name`, `tb_mobile`, `tb_emailid`, `tb_userstatus`, `tb_password`, `tb_createddate`, `tb_updateddate`) VALUES (NULL, 'sendhur', '9856478545', 'email@email.com', '1', '554353654fgdgfd5654', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);

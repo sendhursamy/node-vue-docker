@@ -1,12 +1,12 @@
-const{agentCareDbDetails} = require('./../config/dbConfig')
+const{curdProfileDbDetails} = require('../config/dbConfig')
 const Mysql = require('mysql2/promise');
 //console.log(tpiDbDetails.host);
 
 const sql = Mysql.createPool({
-    host: agentCareDbDetails.host,
-    user: agentCareDbDetails.username,
-    password: agentCareDbDetails.password,
-    database: agentCareDbDetails.dbname
+    host: curdProfileDbDetails.host,
+    user: curdProfileDbDetails.username,
+    password: curdProfileDbDetails.password,
+    database: curdProfileDbDetails.dbname
 });
 //console.log(sql);
 

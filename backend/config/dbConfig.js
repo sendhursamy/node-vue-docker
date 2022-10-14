@@ -1,11 +1,11 @@
-const agentCareDbDetails= {
+const curdProfileDbDetails= {
     "host":"db",
-    "username":"agentportal",
-    "password":"agentportal",
-    "dbname":"Agent_Care"
+    "username":"curd",
+    "password":"curd123",
+    "dbname":"curd_User"
 }
 
 module.exports ={
     
-    agentCareDbDetails
+    curdProfileDbDetails
 }
